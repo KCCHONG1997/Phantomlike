@@ -1,0 +1,22 @@
+{
+  "files": {
+    "main.css": "/phantomlike/static/css/main.e6c13ad2.css",
+    "main.js": "/phantomlike/static/js/main.bb0c01b7.js",
+    "static/js/453.c15ac7b7.chunk.js": "/phantomlike/static/js/453.c15ac7b7.chunk.js",
+    "static/media/banner.png": "/phantomlike/static/media/banner.642703d2dfdbddd5b402.png",
+    "static/media/card_back.png": "/phantomlike/static/media/card_back.3440c8bf19f1dacb5c22.png",
+    "static/media/DEVIL_white.png": "/phantomlike/static/media/DEVIL_white.806611a7c1015b367d32.png",
+    "static/media/PHANTOMLIKE_BLACK_CN.png": "/phantomlike/static/media/PHANTOMLIKE_BLACK_CN.6dd1db6e3fe7e0bb198b.png",
+    "static/media/HORDE_white.png": "/phantomlike/static/media/HORDE_white.5fed04a532db6a22df26.png",
+    "static/media/DEVILORD_white.png": "/phantomlike/static/media/DEVILORD_white.9cd8e19880aafc8d11c4.png",
+    "static/media/PHANTOMLIKE_BLACK.png": "/phantomlike/static/media/PHANTOMLIKE_BLACK.f74fc174d842ac5eae78.png",
+    "index.html": "/phantomlike/index.html",
+    "main.e6c13ad2.css.map": "/phantomlike/static/css/main.e6c13ad2.css.map",
+    "main.bb0c01b7.js.map": "/phantomlike/static/js/main.bb0c01b7.js.map",
+    "453.c15ac7b7.chunk.js.map": "/phantomlike/static/js/453.c15ac7b7.chunk.js.map"
+  },
+  "entrypoints": [
+    "static/css/main.e6c13ad2.css",
+    "static/js/main.bb0c01b7.js"
+  ]
+}
