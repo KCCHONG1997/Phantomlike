@@ -20,30 +20,38 @@ const Home: React.FC = () => {
 
     useEffect(() => {
         const handleBeforeUnload = (e: BeforeUnloadEvent) => {
-            if (cursed) {
-                alert("You can't escape the cursed."); // Missing semicolon fixed
-                e.preventDefault();
-                e.returnValue = ""; // Required to trigger confirmation dialog
-            }
+            localStorage.setItem("Escape", "true");
         };
+        const isUserEscape = localStorage.getItem("Escape");
+        if (isUserEscape === "true"){
+            // alert("Do you think that's going to change?");    ///////////////////////////////change this back rmember
+        }
 
-        // Attach the listener
         window.addEventListener("beforeunload", handleBeforeUnload);
 
+        // Load cursed state from localStorage
         const savedCursed = localStorage.getItem("Cursed");
         if (savedCursed === "true") {
             setCursed(true);
             document.addEventListener("mousemove", createBloodTrail);
-        } else {
-            shuffleCards();
         }
 
-        // Cleanup
         return () => {
             window.removeEventListener("beforeunload", handleBeforeUnload);
             document.removeEventListener("mousemove", createBloodTrail);
         };
     }, []);
+
+    useEffect(() => {
+        if (cursed) {
+            localStorage.setItem("Cursed", "true");
+            document.addEventListener("mousemove", createBloodTrail);
+        } else {
+            localStorage.removeItem("Cursed");
+            document.removeEventListener("mousemove", createBloodTrail);
+        }
+        return () => document.removeEventListener("mousemove", createBloodTrail);
+    }, [cursed]);
 
     const shuffleCards = () => {
         const shuffled = [...cardData].sort(() => Math.random() - 0.5);
@@ -53,7 +61,10 @@ const Home: React.FC = () => {
     };
 
     const handleCardClick = (id: string) => {
-        if (flippedCards.includes(id) || found || cursed) return;
+        if (flippedCards.includes(id) || found || cursed) {
+            
+            return;
+        };
 
         setFlippedCards([...flippedCards, id]);
 
@@ -116,22 +127,27 @@ const Home: React.FC = () => {
                 </div>
             ) : (
                 <>
-                    {/* Banner Section */}
                     <Banner />
-
-                    {/* Paragraph Section */}
                     <section style={{ marginBottom: "40px", fontFamily: "Times New Roman, Times, serif" }}>
                         <h1>Welcome to PHANTOMLIKE</h1>
                         <p style={{ maxWidth: "600px", textAlign: "justify", margin: "0 auto", lineHeight: "1.8" }}>
                             It all started 100 years ago, when the cube-like meteor fell onto our world. It tore through the skies and
-                            shattered the land, leaving nothing but devastation in its wake. And yet, humanity still appears. How is
-                            this possible?
+                            shattered the land, leaving nothing but devastation in its wake. From the meteor came the Devil, and their followers, the Devillord—humanoid creatures that walk among us.
+                            <br />
+                            <br />
+                            People began to change. Slowly, without warning, they lost themselves. Entire cities fell. Governments
+                            crumbled. The world as we knew it ceased to exist.
+                            <br />
+                            <br />
+                            And yet, humanity still appears. 
+                            <br />
+                            <br />
+                            How is this possible?
                         </p>
                     </section>
 
-                    <hr style={{opacity:"0.2"}}/>
+                    <hr style={{ opacity: "0.2" }} />
 
-                    {/* Card Section */}
                     <section style={{ height: "500px", fontFamily: "Times New Roman, Times, serif" }}>
                         {!cursed ? (
                             <>
@@ -144,15 +160,7 @@ const Home: React.FC = () => {
                                 <p style={{ color: "#780606" }}>You found me, but who found you?</p>
                             </>
                         )}
-                        <div
-                            style={{
-                                display: "flex",
-                                justifyContent: "center",
-                                flexWrap: "wrap",
-                                gap: "20px",
-                                marginTop: "30px",
-                            }}
-                        >
+                        <div style={{ display: "flex", justifyContent: "center", flexWrap: "wrap", gap: "20px", marginTop: "30px" }}>
                             {cards.map((card) => (
                                 <LogoCard
                                     key={card.id}
@@ -164,35 +172,6 @@ const Home: React.FC = () => {
                             ))}
                         </div>
                     </section>
-
-                    {/* New Section Revealed When Cursed */}
-                    {cursed && (
-                        <>
-                            <hr style={{opacity:"0.2"}}/>
-                            <section
-                                style={{
-                                    marginTop: "40px",
-                                    padding: "20px",
-                                    backgroundColor: "#111",
-                                    color: "#780606",
-                                    border: "2px solid #780606",
-                                    borderRadius: "8px",
-                                    textAlign: "center",
-                                }}
-                            >
-
-                                <h2 style={{ fontSize: "2rem", marginBottom: "10px" }}>The Cursed Revelation</h2>
-                                <p style={{ lineHeight: "1.8" }}>
-                                    You have been marked. <br />
-                                    The whispers grow louder. <br />
-                                    The Devil watches your every move...
-                                </p>
-                                <p style={{ marginTop: "20px", fontSize: "1.2rem", fontStyle: "italic" }}>
-                                    "You can't escape. Not now. Not ever."
-                                </p>
-                            </section>
-                        </>
-                    )}
                 </>
             )}
         </div>

@@ -1,5 +1,7 @@
 import React from "react";
-import { Routes, Route } from "react-router-dom";
+import { Routes, Route, HashRouter } from "react-router-dom";
+import ReactDOM from 'react-dom/client';
+import {  } from 'react-router-dom';
 import Home from "../view/Home";
 import Links from "../view/Links";
 import About from "../view/About";
