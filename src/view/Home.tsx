@@ -1,9 +1,11 @@
 import React, { useState, useEffect } from "react";
-import LogoCard from "../components/LogoCard/LogoCard";
+import Banner from "../components/Banner/Banner";
+import ParagraphSection from "./ParagraphSection";
+import CardGameSection from "./CardGameSection";
+import GravitySection from "./GravitySection";
 import devilLogo from "../assets/DEVIL_white.png";
 import devillordLogo from "../assets/DEVILORD_white.png";
 import hordeLogo from "../assets/HORDE_white.png";
-import Banner from "../components/Banner/Banner";
 
 const cardData = [
     { id: "devil", title: "Devil", imgSrc: devilLogo },
@@ -19,13 +21,6 @@ const Home: React.FC = () => {
     const [cursed, setCursed] = useState(false);
 
     useEffect(() => {
-        const handleBeforeUnload = (e: BeforeUnloadEvent) => {
-        };
-
-
-        window.addEventListener("beforeunload", handleBeforeUnload);
-
-        // Load cursed state from localStorage
         const savedCursed = localStorage.getItem("Cursed");
         if (savedCursed === "true") {
             setCursed(true);
@@ -33,7 +28,6 @@ const Home: React.FC = () => {
         }
 
         return () => {
-            window.removeEventListener("beforeunload", handleBeforeUnload);
             document.removeEventListener("mousemove", createBloodTrail);
         };
     }, []);
@@ -46,37 +40,7 @@ const Home: React.FC = () => {
             localStorage.removeItem("Cursed");
             document.removeEventListener("mousemove", createBloodTrail);
         }
-        return () => document.removeEventListener("mousemove", createBloodTrail);
     }, [cursed]);
-
-    const shuffleCards = () => {
-        const shuffled = [...cardData].sort(() => Math.random() - 0.5);
-        setCards(shuffled);
-        setFlippedCards([]);
-        setFound(false);
-    };
-
-    const handleCardClick = (id: string) => {
-        if (flippedCards.includes(id) || found || cursed) {
-
-            return;
-        };
-
-        setFlippedCards([...flippedCards, id]);
-
-        if (id === "devil") {
-            setFound(true);
-            triggerJumpscare();
-        }
-    };
-
-    const triggerJumpscare = () => {
-        setShowJumpscare(true);
-        setTimeout(() => {
-            setShowJumpscare(false);
-            setCursed(true);
-        }, 800);
-    };
 
     const createBloodTrail = (e: MouseEvent) => {
         const drop = document.createElement("div");
@@ -99,8 +63,28 @@ const Home: React.FC = () => {
         }, 50);
     };
 
+    const handleCardClick = (id: string) => {
+        if (flippedCards.includes(id) || found || cursed) return;
+
+        setFlippedCards([...flippedCards, id]);
+
+        if (id === "devil") {
+            setFound(true);
+            triggerJumpscare();
+        }
+    };
+
+    const triggerJumpscare = () => {
+        setShowJumpscare(true);
+        setTimeout(() => {
+            setShowJumpscare(false);
+            setCursed(true);
+        }, 800);
+    };
+
     return (
-        <div style={{ padding: "20px", color: "#FAEBD7", textAlign: "center", maxWidth: "900px", margin: "0 auto" }}>
+        <div style={{ padding: "20px", color: "#FAEBD7", textAlign: "center" }}>
+            <h1 style={{ fontFamily: "Times New Roman, Times, serif" }}>#1 - INTRO</h1>
             {showJumpscare ? (
                 <div
                     style={{
@@ -124,50 +108,16 @@ const Home: React.FC = () => {
             ) : (
                 <>
                     <Banner />
-                    <section style={{ marginBottom: "40px", fontFamily: "Times New Roman, Times, serif" }}>
-                        <h1>Welcome to PHANTOMLIKE</h1>
-                        <p style={{ maxWidth: "600px", textAlign: "justify", margin: "0 auto", lineHeight: "1.8" }}>
-                            It all started 100 years ago, when the cube-like meteor fell onto our world. It tore through the skies and
-                            shattered the land, leaving nothing but devastation in its wake. From the meteor came the Devil, and their followers, the Devillord—humanoid creatures that walk among us.
-                            <br />
-                            <br />
-                            People began to change. Slowly, without warning, they lost themselves. Entire cities fell. Governments
-                            crumbled. The world as we knew it ceased to exist.
-                            <br />
-                            <br />
-                            And yet, humanity still appears.
-                            <br />
-                            <br />
-                            How is this possible?
-                        </p>
-                    </section>
-
-                    <hr style={{ opacity: "0.2" }} />
-
-                    <section style={{ height: "500px", fontFamily: "Times New Roman, Times, serif" }}>
-                        {!cursed ? (
-                            <>
-                                <h2>Devil's Trick</h2>
-                                <p>Flip the card to find the Devil</p>
-                            </>
-                        ) : (
-                            <>
-                                <h2 style={{ color: "#780606" }}>I̴ ̷a̴m̷ ̶h̵e̵r̵e̵</h2>
-                                <p style={{ color: "#780606" }}>You found me, but who found you?</p>
-                            </>
-                        )}
-                        <div style={{ display: "flex", justifyContent: "center", flexWrap: "wrap", gap: "20px", marginTop: "30px" }}>
-                            {cards.map((card) => (
-                                <LogoCard
-                                    key={card.id}
-                                    title={card.title}
-                                    imgSrc={card.imgSrc}
-                                    isBack={!flippedCards.includes(card.id)}
-                                    onClick={() => handleCardClick(card.id)}
-                                />
-                            ))}
-                        </div>
-                    </section>
+                    <ParagraphSection cursed={cursed} />
+                    {!cursed ? (
+                        <CardGameSection
+                            cards={cards}
+                            flippedCards={flippedCards}
+                            handleCardClick={handleCardClick}
+                        />
+                    ) : (
+                        <GravitySection/>
+                    )}
                 </>
             )}
         </div>

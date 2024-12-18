@@ -10,7 +10,7 @@ const App: React.FC = () => {
     //   </div>
     // </Router>
     <>
-      <div style={{ marginTop: "0", padding: "20px", backgroundColor: "#111", }}>
+      <div style={{ marginTop: "0", padding: "20px", backgroundColor: "black", }}>
         <Home />
       </div>
     </>
