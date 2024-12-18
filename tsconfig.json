@@ -1,30 +1,20 @@
 {
-    "compilerOptions": {
-      "target": "es5",
-      "lib": [
-        "dom",
-        "dom.iterable",
-        "esnext",
-        "ES2015",
-        "DOM.Iterable",
-        "ScriptHost"
-      ],
-      "allowJs": true,
-      "skipLibCheck": true,
-      "esModuleInterop": true,
-      "allowSyntheticDefaultImports": true,
-      "strict": true,
-      "forceConsistentCasingInFileNames": true,
-      "noFallthroughCasesInSwitch": true,
-      "module": "esnext",
-      "moduleResolution": "node",
-      "resolveJsonModule": true,
-      "isolatedModules": true,
-      "noEmit": true,
-      "jsx": "react-jsx"
-    },
-    "include": [
-      "src"
-    ]
-  }
-  
+  "compilerOptions": {
+    "target": "es5", // Compatibility for older browsers
+    "lib": ["dom", "dom.iterable", "esnext"], // Essential libraries
+    "allowJs": true, // Allow JavaScript files
+    "skipLibCheck": true, // Skip type checks on libraries
+    "esModuleInterop": true, // Ensure compatibility with CommonJS modules
+    "allowSyntheticDefaultImports": true, // Enable default imports for CommonJS
+    "strict": true, // Enable all strict type-checking options
+    "forceConsistentCasingInFileNames": true, // Ensure consistent casing
+    "noFallthroughCasesInSwitch": true, // Disallow fallthrough cases in switch
+    "module": "esnext", // Use ESNext modules
+    "moduleResolution": "node", // Resolve modules like Node.js
+    "resolveJsonModule": true, // Enable importing JSON files
+    "isolatedModules": true, // Ensure each file is treated as a module
+    "noEmit": true, // Do not emit output files
+    "jsx": "react-jsx" // JSX support for React 18+
+  },
+  "include": ["src"]
+}

@@ -14,7 +14,10 @@ const cardData = [
 ];
 
 const Home: React.FC = () => {
-    const [cards, setCards] = useState(cardData);
+    // Shuffle the cards initially
+    const [cards, setCards] = useState(() =>
+        [...cardData].sort(() => Math.random() - 0.5)
+    );
     const [flippedCards, setFlippedCards] = useState<string[]>([]);
     const [found, setFound] = useState(false);
     const [showJumpscare, setShowJumpscare] = useState(false);
@@ -43,24 +46,24 @@ const Home: React.FC = () => {
     }, [cursed]);
 
     const createBloodTrail = (e: MouseEvent) => {
-        const drop = document.createElement("div");
-        drop.style.position = "absolute";
-        drop.style.width = "8px";
-        drop.style.height = "8px";
-        drop.style.backgroundColor = "#780606";
-        drop.style.borderRadius = "50%";
-        drop.style.top = `${e.clientY + window.scrollY}px`;
-        drop.style.left = `${e.clientX + window.scrollX}px`;
-        drop.style.pointerEvents = "none";
-        drop.style.opacity = "0.7";
-        drop.style.transition = "all 0.5s ease-out";
-        document.body.appendChild(drop);
+        // const drop = document.createElement("div");
+        // drop.style.position = "absolute";
+        // drop.style.width = "8px";
+        // drop.style.height = "8px";
+        // drop.style.backgroundColor = "#780606";
+        // drop.style.borderRadius = "50%";
+        // drop.style.top = `${e.clientY + window.scrollY}px`;
+        // drop.style.left = `${e.clientX + window.scrollX}px`;
+        // drop.style.pointerEvents = "none";
+        // drop.style.opacity = "0.7";
+        // drop.style.transition = "all 0.5s ease-out";
+        // document.body.appendChild(drop);
 
-        setTimeout(() => {
-            drop.style.opacity = "0";
-            drop.style.transform = "translateY(10px)";
-            setTimeout(() => drop.remove(), 500);
-        }, 50);
+        // setTimeout(() => {
+        //     drop.style.opacity = "0";
+        //     drop.style.transform = "translateY(10px)";
+        //     setTimeout(() => drop.remove(), 500);
+        // }, 50);
     };
 
     const handleCardClick = (id: string) => {
@@ -109,6 +112,20 @@ const Home: React.FC = () => {
                 <>
                     <Banner />
                     <ParagraphSection cursed={cursed} />
+                    <div style={{ fontFamily: "Times New Roman, Times, serif" }}>
+                        {cursed ? (
+                            <h2 style={{ color: "#780606" }}>I am here</h2>
+                        ) : (
+                            <h2>Devil's Trick</h2>
+                        )}
+                        {cursed ? (
+                            <p style={{ color: "#780606" }}>
+                                You found me, but who found you?
+                            </p>
+                        ) : (
+                            <p>Flip the card to find the Devil</p>
+                        )}
+                    </div>
                     {!cursed ? (
                         <CardGameSection
                             cards={cards}
@@ -116,7 +133,7 @@ const Home: React.FC = () => {
                             handleCardClick={handleCardClick}
                         />
                     ) : (
-                        <GravitySection/>
+                        <GravitySection />
                     )}
                 </>
             )}

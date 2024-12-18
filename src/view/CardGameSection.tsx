@@ -14,8 +14,6 @@ const CardGameSection: React.FC<CardGameSectionProps> = ({
 }) => {
     return (
         <section style={{ fontFamily: "Times New Roman, Times, serif" }}>
-            <h2>Devil's Trick</h2>
-            <p>Flip the card to find the Devil</p>
             <div
                 style={{
                     display: "flex",
