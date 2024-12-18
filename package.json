@@ -20,7 +20,7 @@
     "typescript": "^4.9.5",
     "web-vitals": "^2.1.4"
   },
-  "homepage": "https://KCCHONG1997.github.io/phantomlike",
+  "homepage": "https://KCCHONG1997.github.io/Phantomlike",
   "scripts": {
     "predeploy": "npm run build",
     "deploy": "gh-pages -d build",

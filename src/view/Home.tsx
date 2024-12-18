@@ -20,12 +20,8 @@ const Home: React.FC = () => {
 
     useEffect(() => {
         const handleBeforeUnload = (e: BeforeUnloadEvent) => {
-            localStorage.setItem("Escape", "true");
         };
-        const isUserEscape = localStorage.getItem("Escape");
-        if (isUserEscape === "true"){
-            // alert("Do you think that's going to change?");    ///////////////////////////////change this back rmember
-        }
+
 
         window.addEventListener("beforeunload", handleBeforeUnload);
 
@@ -62,7 +58,7 @@ const Home: React.FC = () => {
 
     const handleCardClick = (id: string) => {
         if (flippedCards.includes(id) || found || cursed) {
-            
+
             return;
         };
 
@@ -139,7 +135,7 @@ const Home: React.FC = () => {
                             crumbled. The world as we knew it ceased to exist.
                             <br />
                             <br />
-                            And yet, humanity still appears. 
+                            And yet, humanity still appears.
                             <br />
                             <br />
                             How is this possible?

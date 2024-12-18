@@ -1,7 +1,4 @@
 import React from "react";
-import { BrowserRouter as Router } from "react-router-dom";
-import NavBar from "./components/NavBar/NavBar";
-import MainRoutes from "./routes/MainRoutes";
 import Home from "./view/Home";
 
 const App: React.FC = () => {
