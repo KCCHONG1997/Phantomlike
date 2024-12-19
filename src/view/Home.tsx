@@ -111,7 +111,9 @@ const Home: React.FC = () => {
             ) : (
                 <>
                     <Banner />
+                    <hr/>
                     <ParagraphSection cursed={cursed} />
+                    <hr/>
                     <div style={{ fontFamily: "Times New Roman, Times, serif" }}>
                         {cursed ? (
                             <h2 style={{ color: "#780606" }}>I am here</h2>
