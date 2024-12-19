@@ -133,7 +133,8 @@ const Home: React.FC = () => {
                             handleCardClick={handleCardClick}
                         />
                     ) : (
-                        <GravitySection />
+                        <><GravitySection />
+                        <hr /></>
                     )}
                 </>
             )}
