@@ -1,6 +1,6 @@
 {
   "name": "phantomlike-ui",
-  "version": "1.1.2",
+  "version": "1.2.0-stable",
   "description": "Phantomlike intro and link for my active art account",
   "main": "index.tsx",
   "dependencies": {
