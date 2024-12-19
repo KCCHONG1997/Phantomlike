@@ -1,20 +1,25 @@
 {
   "files": {
     "main.css": "/Phantomlike/static/css/main.e6c13ad2.css",
-    "main.js": "/Phantomlike/static/js/main.19ab50b6.js",
+    "main.js": "/Phantomlike/static/js/main.1df2d06f.js",
     "static/js/453.c15ac7b7.chunk.js": "/Phantomlike/static/js/453.c15ac7b7.chunk.js",
     "static/media/banner.png": "/Phantomlike/static/media/banner.642703d2dfdbddd5b402.png",
+    "static/media/bottomright.png": "/Phantomlike/static/media/bottomright.06a20e781177ffaed309.png",
     "static/media/card_back.png": "/Phantomlike/static/media/card_back.3440c8bf19f1dacb5c22.png",
+    "static/media/topmid.png": "/Phantomlike/static/media/topmid.1579112b66e28444d61f.png",
+    "static/media/bottomleft.png": "/Phantomlike/static/media/bottomleft.0d285f800dd78aee9c06.png",
+    "static/media/topright.png": "/Phantomlike/static/media/topright.e99c64a0806280a74a89.png",
     "static/media/DEVIL_white.png": "/Phantomlike/static/media/DEVIL_white.806611a7c1015b367d32.png",
+    "static/media/topleft.png": "/Phantomlike/static/media/topleft.f4839f6ac4f807ab4441.png",
     "static/media/HORDE_white.png": "/Phantomlike/static/media/HORDE_white.5fed04a532db6a22df26.png",
     "static/media/DEVILORD_white.png": "/Phantomlike/static/media/DEVILORD_white.9cd8e19880aafc8d11c4.png",
     "index.html": "/Phantomlike/index.html",
     "main.e6c13ad2.css.map": "/Phantomlike/static/css/main.e6c13ad2.css.map",
-    "main.19ab50b6.js.map": "/Phantomlike/static/js/main.19ab50b6.js.map",
+    "main.1df2d06f.js.map": "/Phantomlike/static/js/main.1df2d06f.js.map",
     "453.c15ac7b7.chunk.js.map": "/Phantomlike/static/js/453.c15ac7b7.chunk.js.map"
   },
   "entrypoints": [
     "static/css/main.e6c13ad2.css",
-    "static/js/main.19ab50b6.js"
+    "static/js/main.1df2d06f.js"
   ]
 }
