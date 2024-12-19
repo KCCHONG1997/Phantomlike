@@ -43,7 +43,7 @@ const DevilordPage: React.FC = () => {
                 </motion.p>
 
                 <motion.p
-                    custom={1}
+                    custom={2}
                     initial="hidden"
                     animate="visible"
                     variants={textVariant}
@@ -59,7 +59,7 @@ const DevilordPage: React.FC = () => {
                         border: "1px solid #FAEBD7",
                         padding: "20px",
                     }}
-                    custom={2}
+                    custom={3}
                     initial="hidden"
                     animate="visible"
                     variants={textVariant}
