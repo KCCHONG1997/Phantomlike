@@ -13,7 +13,7 @@ const RemoveCursePage: React.FC = () => {
     const jumpscareMessages = [
         "I see you...",
         "I know who you are...",
-        "It's too late now.",
+        "It's too late now...",
     ];
 
     const handleRemoveCurse = () => {
