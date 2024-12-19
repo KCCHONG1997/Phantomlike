@@ -7,7 +7,7 @@ type ParagraphSectionProps = {
 const ParagraphSection: React.FC<ParagraphSectionProps> = ({ cursed }) => {
     return (
         <section style={{ marginBottom: "40px", fontFamily: "Times New Roman, Times, serif" }}>
-            <h1>Welcome to PHANTOMLIKE</h1>
+            <h1>Intro to PHANTOMLIKE</h1>
             <p style={{ maxWidth: "600px", textAlign: "justify", margin: "0 auto", lineHeight: "1.8" }}>
                 It all started 100 years ago, when the cube-like meteor fell onto our world. It tore through the skies and
                 shattered the land, leaving nothing but devastation in its wake. From the meteor came the Devil, and their followers, the Devillord—humanoid creatures that walk among us.

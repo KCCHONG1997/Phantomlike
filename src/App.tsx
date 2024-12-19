@@ -3,6 +3,8 @@ import { HashRouter as Router, Routes, Route } from "react-router-dom";
 import Home from "./view/Home";
 import DevilordPage from "./view/DevilordPage";
 import DevilordPageCursed from "./view/DevilordPageCursed";
+import "./App.css"
+import PhantomlikePage from "./view/PhantomlikePage";
 
 const App: React.FC = () => {
   const isCursed = localStorage.getItem("Cursed") === "true";
@@ -17,6 +19,7 @@ const App: React.FC = () => {
         <Routes>
           <Route path="/" element={<Home />} />
           {isCursed?<Route path="/devilord" element={<DevilordPageCursed />}/> :<Route path="/devilord" element={<DevilordPage />}/>}
+          <Route path="/phantomlikeHaven" element={<PhantomlikePage />} />
         </Routes>
       </div>
   );
