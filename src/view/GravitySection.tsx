@@ -1,6 +1,12 @@
 import React, { useEffect, useRef } from "react";
 import planck from "planck";
-import cardTorn from "../assets/card_back.png";
+
+// Import the uploaded images
+import topMid from "../assets/topmid.png";
+import bottomLeft from "../assets/bottomleft.png";
+import bottomRight from "../assets/bottomright.png";
+import topRight from "../assets/topright.png";
+import topLeft from "../assets/topleft.png";
 
 const GravitySection: React.FC = () => {
     const canvasRef = useRef<HTMLCanvasElement>(null);
@@ -17,75 +23,46 @@ const GravitySection: React.FC = () => {
             boundary.createFixture(new pl.Edge(new pl.Vec2(x1, y1), new pl.Vec2(x2, y2)));
         };
 
-        createBoundary(-7, 0, 7, 0); // Ground
-        createBoundary(-6, 0, -6, 7); // Left wall
-        createBoundary(6, 0, 6, 6); // Right wall
-        createBoundary(-8, 8, 8, 8); // Top wall
+        createBoundary(-7, 0.5, 7, 0.5); // Ground
+        createBoundary(-7, 0, -7, 10); // Left wall
+        createBoundary(7, 0, 7, 7); // Right wall
+        createBoundary(-7, 7, 7, 7); // Top wall
 
-        const objects: planck.Body[] = []; // Explicitly type the objects array
+        // Define scaling factor for the images
+        const scalingFactor = 0.5;
 
-        // Create a random shape (rectangle, triangle)
-        const createRandomShape = () => {
-            const randomX = Math.random() * 12 - 6; // Random x position
-            const position = new pl.Vec2(randomX, 8); // Starting position (top)
+        // Load all images with their dimensions
+        const images = [
+            { src: topMid, width: (265 / 50) * scalingFactor, height: (304 / 50) * scalingFactor },
+            { src: bottomLeft, width: (217 / 50) * scalingFactor, height: (315 / 50) * scalingFactor },
+            { src: bottomRight, width: (257 / 50) * scalingFactor, height: (264 / 50) * scalingFactor },
+            { src: topRight, width: (186 / 50) * scalingFactor, height: (274 / 50) * scalingFactor },
+            { src: topLeft, width: (161 / 50) * scalingFactor, height: (148 / 50) * scalingFactor },
+        ].map(({ src, width, height }) => {
+            const img = new Image();
+            img.src = src;
+            return { img, width, height };
+        });
 
-            // Randomly decide shape
-            const shapeType = Math.random();
-            let body;
-            if (shapeType < 0.33) {
-                // Rectangle
-                body = world.createBody({
-                    type: "dynamic",
-                    position,
-                });
-                body.createFixture(new pl.Box(0.5, 0.5), {
-                    density: 1.0,
-                    friction: 0.3,
-                });
-            } else if (shapeType < 0.66) {
-                // Triangle (approximated as a polygon)
-                body = world.createBody({
-                    type: "dynamic",
-                    position,
-                });
-                const vertices = [
-                    new pl.Vec2(0, 0.5),
-                    new pl.Vec2(-0.5, -0.5),
-                    new pl.Vec2(0.5, -0.5),
-                ];
-                body.createFixture(new pl.Polygon(vertices), {
-                    density: 1.0,
-                    friction: 0.3,
-                });
-            } else {
-                // Another rectangle with a different aspect ratio
-                body = world.createBody({
-                    type: "dynamic",
-                    position,
-                });
-                body.createFixture(new pl.Box(0.3, 0.7), {
-                    density: 1.0,
-                    friction: 0.3,
-                });
-            }
+        // Create dynamic bodies for each image
+        const objects = images.map(({ img, width, height }, index) => {
+            const body = world.createBody({
+                type: "dynamic",
+                position: new pl.Vec2(-3 + index * 2, 5), // Spread them apart horizontally
+            });
 
-            objects.push(body); // Add to objects array
-        };
+            // Use the correct dimensions for the fixture
+            body.createFixture(new pl.Box(width / 2, height / 2), { density: 0.7, friction: 0.3 });
 
-        // Spawn initial objects
-        for (let i = 0; i < 5; i++) {
-            createRandomShape();
-        }
+            return { body, image: img, width, height };
+        });
 
         const canvas = canvasRef.current;
         if (!canvas) return;
         const ctx = canvas.getContext("2d");
         if (!ctx) return;
 
-        const scale = 70; // Scale for rendering
-        // const boxImage = new Image(); // Load the image
-        // boxImage.src = cardTorn;
-
+        const scale = 50; // Scale for rendering
         let mouseJoint: planck.MouseJoint | null = null;
 
         // Utility to convert screen coordinates to world coordinates
@@ -117,13 +94,13 @@ const GravitySection: React.FC = () => {
                 const groundBody = world.createBody(); // Ground body required by MouseJoint
                 mouseJoint = new pl.MouseJoint(
                     {
-                        maxForce: 1000.0,
+                        maxForce: 500.0,
                     },
                     groundBody,
                     bodyUnderMouse
                 );
                 world.createJoint(mouseJoint); // Add the MouseJoint to the world
-                mouseJoint.setTarget(mousePos); // Set the target position
+                mouseJoint.setTarget(mousePos); // Set the initial target position
             }
         };
 
@@ -149,9 +126,15 @@ const GravitySection: React.FC = () => {
         // Render loop
         const render = () => {
             ctx.clearRect(0, 0, canvas.width, canvas.height);
-
+        
+            // Draw boundaries
+            ctx.beginPath();
+            ctx.rect(0, 0, canvas.width, canvas.height);
+            ctx.strokeStyle = "black";
+            ctx.stroke();
+        
             // Draw objects
-            objects.forEach((body) => {
+            objects.forEach(({ body, image, width, height }) => {
                 const position = body.getPosition();
                 const angle = body.getAngle();
                 ctx.save();
@@ -160,23 +143,38 @@ const GravitySection: React.FC = () => {
                     canvas.height - position.y * scale
                 );
                 ctx.rotate(-angle);
-
-                // if (boxImage.complete) {
-                if (false) {
-                    // ctx.drawImage(boxImage, -25, -25, 50, 50); // Draw as card image
+        
+                if (image.complete) {
+                    // Calculate "contain" dimensions
+                    const imageAspectRatio = image.width / image.height;
+                    const boxAspectRatio = width / height;
+        
+                    let drawWidth = width * scale;
+                    let drawHeight = height * scale;
+        
+                    if (imageAspectRatio > boxAspectRatio) {
+                        drawWidth = drawHeight * imageAspectRatio;
+                    } else {
+                        drawHeight = drawWidth / imageAspectRatio;
+                    }
+        
+                    // Draw the image with "contain" scaling
+                    ctx.drawImage(image, -drawWidth / 2, -drawHeight / 2, drawWidth, drawHeight);
                 } else {
-                    ctx.fillStyle = "blue"; // Fallback color
-                    ctx.fillRect(-25, -25, 50, 50);
+                    // Fallback rectangle if the image isn't loaded
+                    ctx.fillStyle = "blue";
+                    ctx.fillRect(-width * scale / 2, -height * scale / 2, width * scale, height * scale);
                 }
-
+        
                 ctx.restore();
             });
-
+        
             // Step the physics simulation
             world.step(1 / 60);
-
+        
             requestAnimationFrame(render);
         };
+        
 
         render();
 
@@ -193,7 +191,7 @@ const GravitySection: React.FC = () => {
             ref={canvasRef}
             width={600}
             height={400}
-            style={{ border: "1px solid red" }}
+            // style={{ border: "1px solid red" }}
         />
     );
 };
